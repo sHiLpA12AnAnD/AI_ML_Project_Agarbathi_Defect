@@ -1,0 +1,192 @@
+<!-- Responsive Dashboard for Agarbathi Defect Automation -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Agarbathi Defect Automation Dashboard</title>
+
+
+<!-- Links for css and others -->
+{% load static %}
+     <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashapp/style.css' %}?">
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<!-- <script src="agarbathi.js"></script> -->
+
+
+</head>
+<body>
+
+    <!-- Adding the dashboard Grid Container here!!-->
+
+    <div class="container">
+        <div class="navbar">
+            <img class="logo" src="{% static 'images/logo.png' %}" alt="logo">
+            <img class="logo2" src="{% static 'images/mssharathilogo2.png' %}" alt="logo">
+            <p class="logo2_title"> M/S Sarathi International Inc.</p>
+            <p class="date" id="date"></p>
+        </div>
+
+        <div class="title">
+        <div class="header">
+            <h4> Agarbathi Defect Sorting Automation </h4>
+            <button class="button_login">Login</button>
+            <button class="button_admin">Admin</button>
+        </div>
+        </div>
+
+
+        <div class="main_section">
+            <div class="card_live">
+                <p class="live">Live</p>
+                <img src="{% static 'images/Agarbathi.png' %}" alt="agarbathi">
+
+            </div>
+
+            <div class="card_preview">
+                <p class="preview">Preview</p>
+                <img src="{% static 'images/Agarbathi.png' %}" alt="agarbathi"><div class="dot"><span class="circle"></span></div><p class="m">M</p>
+                <div class="square"><span class="camera"></span></div><p class="g">G</p><p class="g2">G</p><p class="g3">G</p>
+            </div>
+
+            <div class="card_table">
+                <div class="defects">
+                    <div class="defects_title">
+                        Defects 
+                        </div>
+                </div>
+
+                <div class="status">
+                    <div class="status_title">
+                        Status 
+                        </div>
+                </div>
+                <table>
+                    <tr>
+                      <td>Top Defect (T)</td>
+                      <td><i class="fa fa-check" style="font-size: 25px; color:#8FBC8F;"></i></td>
+                    </tr>
+                    <tr>
+                      <td>Bottom Defect (B)</td>
+                      <td><i class="fa fa-check" style="font-size: 25px; color:#8FBC8F;"></i></td>
+                    
+                    </tr>
+                    <tr>
+                      <td>No Tip Defect (N)</td>
+                      <td><i class="fa fa-check" style="font-size: 25px; color:#8FBC8F;"></i></td>
+                  
+                    </tr>
+                    <tr>
+                      <td class="defect_m">Middle Defect (M)</td>
+                      <td><i class="fa fa-close" style="font-size:25px;color:red"></i></td>
+                    </tr>
+    
+                  </table>
+                  
+            </div>
+
+            <div class="card_pie">
+                 {% block content %}
+                 {% load plotly_dash %}
+
+                <div class="{% plotly_class name='piechart' %} card">
+                    {% plotly_app name='piechart' ratio=0.65 %}
+                </div>
+
+                
+            </div>
+
+            <div class="card_stack">
+                {% load plotly_dash %}
+
+                <div class="{% plotly_class name='stackbar' %} card">
+                    {% plotly_app name='stackbar' ratio=0.65 %}
+
+                {% endblock %}
+
+            </div>
+
+            <div class="accepted">
+                <div class="accepted_count">
+                    Accepted: <span class="count">{{ accepted }}</span>
+                    </div>
+            </div>
+
+            <div class="rejected">
+                <div class="rejected_count">
+                    Rejected: <span class="count">{{ rejected }}</span>
+                    </div>
+            </div>
+
+            <div class="total">
+                <div class="total_count">
+                    Total: <span class="count">{{ total }}</span>
+                    </div>
+            </div>
+
+            <div class="download_pdf">
+                <p class="p_download"> Download as Pdf <i class="fa fa-file-pdf-o" style="font-size:22px; color:red"></i></p>
+                <a class="weekly" href="{% static 'files/Report.pdf' %}" download>Weekly <i class="fa fa-download"></i></a>
+                <a class="monthly" href="{% static 'files/Report.pdf' %}" download>Monthly <i class="fa fa-download"></i></a>
+                <a class="yearly" href="{% static 'files/Report.pdf' %}" download>Yearly <i class="fa fa-download"></i></a>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    
+</div>
+    
+
+    <!-- <div class="grid-container">
+        <img class="logo" src="assets/images/logo.png" alt="logo">
+        <p> I am grid layout </p>
+        <header class="header">
+            
+            
+        </header>
+        <main class="main">
+            <p> I am main </p>
+        </main>
+        <footer class="footer">
+            <p> I am footer</p>
+        </footer>
+      </div>
+        
+</div> -->
+
+<!-- Java script -->
+<script>
+    var d = new Date();
+    document.getElementById("date").innerHTML = d;
+
+    $('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 5000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+
+
+</script>
+
+
+</body>
+</html>
